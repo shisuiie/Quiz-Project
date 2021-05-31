@@ -25,7 +25,7 @@ questions_answers = {
 }
 
 
-class Quiz:
+class Quizstarter:
     def __init__(self, parent):#constructor, The __init__() function is called automatically every time the class is being used to create a new object.
  
         background_color="#6bbf59"# to set it as background color for all the label widgets
@@ -37,8 +37,8 @@ class Quiz:
                
         #widgets goes below
         self.heading_label = Label(self.quiz_frame, text="Which Celebrity fits your personality?", font=("Comfortaa","18","bold"),bg=background_color,fg="#FFFFFF")
-        self.heading_label.grid(column=0 ,row=0, padx=20)
-        self.var1=IntVar() #holds value of radio buttons
+        self.heading_label.grid(column=0 ,row=0, padx=20, sticky=w)
+       
         
         #label for name
         self.user_label = Label(self.quiz_frame, text="Name ", font=("Comfortaa","16","bold"),bg= background_color,fg="#FFFFFF")
@@ -78,10 +78,52 @@ class Quiz:
         name=self.entry_box.get()
         names.append(name) #add name to names list declared at the beginning
         self.continue_button.destroy()
-        self.entry_box.destroy() #Destroy name frame then open the quiz runner
-      
-           
+        self.entry_box.destroy()
+        self.quiz_frame.destroy() #Destroy name frame then open the quiz runner
+        Quiz(root)
 
+class Quiz:
+  def __init__(self, parent):
+    background_color="#6bbf59"
+    self.quiz_frame=Frame(parent, bg=background_color, padx=40, pady=40)
+    self.quiz_frame.grid()
+
+
+    #call randomiser before listing
+    randomiser()
+
+
+    #questions
+    self.question_label=Label(self.quiz_frame, text=questions_answers[qnum][0], font=("Tw Cen MT","16"), bg=background_color)
+    self.question_label.grid(row=1, padx=10, pady=10)
+
+  #holds value of radio buttons
+  self.var1=IntVar()
+
+  #radio Button1
+  self.rb1=Radiobutton(self.quiz_frame, text=questions_answers[qnum][1], font=("Helvetica","12"), bg=background_color, value=1, padx=10, pady=10, variable=self.var1, indicator=0, background="light blue")
+  self.rb1.grid(row=2, sticky=w)
+
+  #radio Button2
+  self.rb2=Radiobutton(self.quiz_frame, text=questions_answers[qnum][2], font=("Helvetica","12"), bg=background_color, value=2, padx=10, pady=10, variable=self.var1, indicator=0, background="light blue")
+  self.rb2.grid(row=3, sticky=w)
+
+  #radio Button3
+  self.rb3=Radiobutton(self.quiz_frame, text=questions_answers[qnum][3], font=("Helvetica","12"), bg=background_color, value=3, padx=10, pady=10, variable=self.var1, indicator=0, background="light blue")
+  self.rb3.grid(row=4, sticky=w)
+
+  #radio Button4
+  self.rb4=Radiobutton(self.quiz_frame, text=questions_answers[qnum][4], font=("Helvetica","12"), bg=background_color, value=4, padx=10, pady=10, variable=self.var1, indicator=0, background="light blue")
+  self.rb4.grid(row=5, sticky=w)
+
+  #confirm Button
+  self.quiz_instance=Button(self.quiz_frame, text="Confirm", font=("Helvetice","13","bold"), bg=background_color,)
+  self.quiz_instance.grid(row=7, padx=5, pady=5)
+
+
+
+randomiser()
+#starting point of program
 if __name__ == "__main__":
     root = Tk()
     root.title("Which celebrity fits your personality?") 
